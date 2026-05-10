@@ -84,3 +84,18 @@
 .podcast-info {
   padding: 12px;
 }
+
+.genre-tags {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 4px;
+  margin: 4px 0;
+}
+
+.genre-tag {
+  background-color: lightgrey;
+  padding: 2px 6px;
+  border-radius: 4px;
+  font-size: 0.8em;
+  color: #333;
+}
