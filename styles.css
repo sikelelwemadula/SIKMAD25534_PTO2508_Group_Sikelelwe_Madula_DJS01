@@ -72,6 +72,13 @@
   border-radius: 8px;
   overflow: hidden;
   font-family: sans-serif;
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.podcast-card:hover {
+  cursor: pointer;
+  transform: translateY(-2px);
+  box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
 }
 
 .podcast-image {
