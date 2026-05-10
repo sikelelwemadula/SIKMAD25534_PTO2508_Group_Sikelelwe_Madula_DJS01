@@ -1,3 +1,5 @@
+import { genres, seasons } from "../data.js";
+
 const modal = document.getElementById('modal');
 const modalTitle = document.getElementById('modalTitle');
 const modalImage = document.getElementById('modalImage');
@@ -8,11 +10,15 @@ const seasonList = document.getElementById('seasonList');
 
 function formatGenres(genreIds) {
   if (!Array.isArray(genreIds) || genreIds.length === 0) {
-    return '<span class="tag">No genres</span>';
+    return '<span class="genre-tag">No genres</span>';
   }
 
   return genreIds
-    .map((id) => `<span class="tag">Genre ${id}</span>`)
+    .map((id) => {
+      const genre = genres.find(g => g.id === id);
+      const name = genre ? genre.title : `Genre ${id}`;
+      return `<span class="genre-tag">${name}</span>`;
+    })
     .join(' ');
 }
 
@@ -25,7 +31,13 @@ function open(podcast) {
   modalDesc.textContent = podcast.description || '';
   modalGenres.innerHTML = formatGenres(podcast.genres);
   modalUpdated.textContent = `Updated: ${new Date(podcast.updated).toLocaleDateString()}`;
-  seasonList.innerHTML = `<li>${podcast.seasons} season${podcast.seasons === 1 ? '' : 's'}</li>`;
+  const podcastSeasons = seasons.find(s => s.id === podcast.id)?.seasonDetails || [];
+  seasonList.innerHTML = podcastSeasons.map(season => `
+    <li class="season-card">
+      <h4>${season.title}</h4>
+      <p>${season.episodes} episodes</p>
+    </li>
+  `).join('');
 
   modal.classList.remove('hidden');
 }
